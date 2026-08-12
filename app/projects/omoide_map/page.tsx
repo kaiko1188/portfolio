@@ -1,4 +1,6 @@
+```tsx
 import Link from "next/link";
+import Image from "next/image";
 
 const technologies = [
   "Flutter",
@@ -144,6 +146,18 @@ export default function OmoideMapPage() {
               )
             )}
           </div>
+
+          {/* Hero Image */}
+          <div className="mt-20 overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.02]">
+            <Image
+              src="/images/思い出マップ.png"
+              alt="Omoide Map"
+              width={1600}
+              height={900}
+              className="h-auto w-full object-cover"
+              priority
+            />
+          </div>
         </div>
       </section>
 
@@ -221,27 +235,38 @@ export default function OmoideMapPage() {
         <div className="mx-auto max-w-6xl">
           <SectionLabel number="03" label="Idea" />
 
-          <div className="mt-12 rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/[0.07] to-white/[0.02] p-8 sm:p-14">
-            <p className="text-xs uppercase tracking-[0.3em] text-gray-600">
-              The Concept
-            </p>
+          <div className="mt-12 grid gap-10 md:grid-cols-2 md:items-center">
+            <div>
+              <p className="text-xs uppercase tracking-[0.3em] text-gray-600">
+                The Concept
+              </p>
 
-            <h2 className="mt-6 max-w-4xl text-4xl font-semibold leading-tight sm:text-6xl">
-              自分たちの思い出で、
-              <br />
-              <span className="text-gray-500">
-                日本地図を埋めていく。
-              </span>
-            </h2>
+              <h2 className="mt-6 text-4xl font-semibold leading-tight sm:text-6xl">
+                自分たちの思い出で、
+                <br />
+                <span className="text-gray-500">
+                  日本地図を埋めていく。
+                </span>
+              </h2>
 
-            <p className="mt-8 max-w-2xl text-base leading-8 text-gray-400">
-              訪れた都道府県を記録するだけではなく、
-              その場所で撮影した写真を都道府県の形に合わせて表示。
-              旅行の数が増えるほど、日本地図そのものが思い出のアルバムになっていく体験を考えました。
-            </p>
+              <p className="mt-8 max-w-xl text-base leading-8 text-gray-400">
+                「県の形に写真を表示する」というアイデアを自分自身で考え、
+                訪れた場所と写真を直感的に結びつけるUIとして実装しました。
+              </p>
 
-            <div className="mt-10 inline-flex rounded-full border border-white/10 px-5 py-3 text-sm text-gray-300">
-              Original UI Idea
+              <div className="mt-8 inline-flex rounded-full border border-white/10 px-5 py-3 text-sm text-gray-300">
+                Original UI Idea
+              </div>
+            </div>
+
+            <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/[0.02]">
+              <Image
+                src="/images/日本地図.png"
+                alt="日本地図を使ったOmoide MapのUI"
+                width={1200}
+                height={900}
+                className="h-auto w-full object-contain"
+              />
             </div>
           </div>
         </div>
@@ -274,10 +299,12 @@ export default function OmoideMapPage() {
                   quote="特定のグループで思い出を共有したい"
                   result="グループ共有機能"
                 />
+
                 <HearingItem
                   quote="写真だけではなく日記も残したい"
                   result="写真＋日記機能"
                 />
+
                 <HearingItem
                   quote="訪れた場所を視覚的に見たい"
                   result="日本地図による可視化"
@@ -290,6 +317,7 @@ export default function OmoideMapPage() {
             <p className="text-xs uppercase tracking-[0.25em] text-gray-600">
               What I realized
             </p>
+
             <p className="mt-5 max-w-3xl text-lg leading-8 text-gray-300">
               自分一人で考えていると発想に偏りが出ます。
               実際に使う人へ話を聞くことで、自分では想定していなかったニーズや
@@ -320,6 +348,7 @@ export default function OmoideMapPage() {
                   <span className="text-sm text-gray-600">
                     {feature.number}
                   </span>
+
                   <span className="text-gray-700 transition group-hover:text-gray-400">
                     ↗
                   </span>
@@ -338,12 +367,42 @@ export default function OmoideMapPage() {
         </div>
       </section>
 
-      {/* Design */}
+      {/* App Screens */}
       <section className="border-t border-white/10 px-6 py-28 sm:py-36">
         <div className="mx-auto max-w-6xl">
-          <SectionLabel number="06" label="Design" />
+          <SectionLabel number="06" label="App Screens" />
 
-          <div className="mt-12 grid gap-12 md:grid-cols-2 md:items-end">
+          <div className="mt-12">
+            <h2 className="text-3xl font-semibold sm:text-5xl">
+              From design
+              <br />
+              <span className="text-gray-500">to actual screens.</span>
+            </h2>
+
+            <p className="mt-6 max-w-2xl leading-8 text-gray-400">
+              FigmaでUIを設計した後、Flutterを使って実際のアプリとして
+              実装しました。ここでは完成したアプリの画面を紹介します。
+            </p>
+          </div>
+
+          <div className="mt-14 overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.02] p-4 sm:p-8">
+            <Image
+              src="/images/画面.png"
+              alt="Omoide Mapのアプリ画面"
+              width={1600}
+              height={1000}
+              className="h-auto w-full rounded-2xl object-contain"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Design */}
+      <section className="border-t border-white/10 bg-white/[0.015] px-6 py-28 sm:py-36">
+        <div className="mx-auto max-w-6xl">
+          <SectionLabel number="07" label="Design" />
+
+          <div className="mt-12 grid gap-12 md:grid-cols-2 md:items-center">
             <div>
               <h2 className="text-3xl font-semibold sm:text-5xl">
                 Figmaで考えてから、
@@ -357,22 +416,23 @@ export default function OmoideMapPage() {
               </p>
             </div>
 
-            <div className="rounded-2xl border border-dashed border-white/15 bg-white/[0.02] p-12 text-center">
-              <p className="text-sm text-gray-500">
-                Figma / App Screenshots
-              </p>
-              <p className="mt-3 text-xs text-gray-700">
-                Screenshots can be added here.
-              </p>
+            <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/[0.02]">
+              <Image
+                src="/images/思い出マップ.png"
+                alt="Omoide Mapのデザイン"
+                width={1200}
+                height={800}
+                className="h-auto w-full object-contain"
+              />
             </div>
           </div>
         </div>
       </section>
 
       {/* Technology */}
-      <section className="border-t border-white/10 bg-white/[0.015] px-6 py-28 sm:py-36">
+      <section className="border-t border-white/10 px-6 py-28 sm:py-36">
         <div className="mx-auto max-w-6xl">
-          <SectionLabel number="07" label="Technology" />
+          <SectionLabel number="08" label="Technology" />
 
           <div className="mt-12 grid gap-12 md:grid-cols-[0.8fr_1.2fr]">
             <div>
@@ -404,9 +464,9 @@ export default function OmoideMapPage() {
       </section>
 
       {/* Development */}
-      <section className="border-t border-white/10 px-6 py-28 sm:py-36">
+      <section className="border-t border-white/10 bg-white/[0.015] px-6 py-28 sm:py-36">
         <div className="mx-auto max-w-6xl">
-          <SectionLabel number="08" label="Development" />
+          <SectionLabel number="09" label="Development" />
 
           <div className="mt-12">
             <h2 className="text-3xl font-semibold sm:text-5xl">
@@ -439,9 +499,9 @@ export default function OmoideMapPage() {
       </section>
 
       {/* Challenges */}
-      <section className="border-t border-white/10 bg-white/[0.015] px-6 py-28 sm:py-36">
+      <section className="border-t border-white/10 px-6 py-28 sm:py-36">
         <div className="mx-auto max-w-6xl">
-          <SectionLabel number="09" label="Challenges" />
+          <SectionLabel number="10" label="Challenges" />
 
           <div className="mt-12 grid gap-12 md:grid-cols-[0.75fr_1.25fr]">
             <div>
@@ -486,9 +546,9 @@ export default function OmoideMapPage() {
       </section>
 
       {/* What I Learned */}
-      <section className="border-t border-white/10 px-6 py-28 sm:py-36">
+      <section className="border-t border-white/10 bg-white/[0.015] px-6 py-28 sm:py-36">
         <div className="mx-auto max-w-6xl">
-          <SectionLabel number="10" label="What I Learned" />
+          <SectionLabel number="11" label="What I Learned" />
 
           <h2 className="mt-10 max-w-3xl text-3xl font-semibold leading-tight sm:text-5xl">
             技術だけではなく、
@@ -521,7 +581,7 @@ export default function OmoideMapPage() {
       <section className="border-t border-white/10 px-6 py-28 sm:py-36">
         <div className="mx-auto max-w-6xl">
           <div className="rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/[0.07] to-white/[0.02] p-10 sm:p-16">
-            <SectionLabel number="11" label="Source Code" />
+            <SectionLabel number="12" label="GitHub" />
 
             <h2 className="mt-10 text-4xl font-semibold sm:text-6xl">
               Explore the
@@ -657,3 +717,4 @@ function LearningCard({
     </div>
   );
 }
+```
