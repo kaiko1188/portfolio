@@ -106,7 +106,28 @@ export default function OmoideMapPage() {
             <br />
             <span className="text-gray-500">Map.</span>
           </h1>
+       <div className="flex items-center justify-between">
+  <div>
+    <h3 className="text-xl font-bold">
+      思い出マップ
+    </h3>
+    <p className="text-gray-500">
+      写真と思い出を地図上に残せるWebアプリ
+    </p>
+  </div>
 
+  <a
+    href="https://omoidemap.vercel.app/"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="group flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-4 py-2 text-sm font-medium text-blue-600 transition-all duration-200 hover:border-blue-400 hover:bg-blue-600 hover:text-white"
+  >
+    <span>View Project</span>
+    <span className="transition-transform duration-200 group-hover:translate-x-1">
+      →
+    </span>
+  </a>
+</div>
           <div className="mt-10 grid gap-10 md:grid-cols-[1fr_320px] md:items-end">
             <div>
               <p className="text-2xl font-medium tracking-tight text-gray-200 sm:text-3xl">
