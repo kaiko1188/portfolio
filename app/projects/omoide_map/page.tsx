@@ -6,9 +6,11 @@ const technologies = [
   "Firebase",
   "Firebase Authentication",
   "Cloud Firestore",
+  "Firebase Storage",
   "Google Maps",
   "Riverpod",
   "GoRouter",
+  "Git / GitHub",
 ];
 
 const features = [
@@ -16,37 +18,64 @@ const features = [
     number: "01",
     title: "グループで思い出を共有",
     description:
-      "友達グループやカップルなど、特定のメンバーで同じ思い出を共有。最大8人程度のグループで、一緒に旅行したメンバーの思い出を残すことを想定しています。",
+      "友達やカップルなど、特定のグループ内で思い出を共有。最大8人程度のグループを想定し、同じ旅行の記録をみんなで残せるようにしました。",
   },
   {
     number: "02",
     title: "写真と日記を記録",
     description:
-      "旅行先で撮影した写真だけでなく、その時の出来事や感じたことを日記として残します。写真だけでは残りにくい記憶まで振り返ることができます。",
+      "旅行先で撮影した写真だけでなく、そのときの出来事や感情を日記として残せるようにしました。写真だけでは残りにくい記憶も振り返ることができます。",
   },
   {
     number: "03",
     title: "日本地図で思い出を可視化",
     description:
-      "訪れた都道府県を日本地図上で確認できます。これまでどこへ行ったのかを視覚的に振り返りながら、次の旅行先を考えるきっかけにもつなげます。",
+      "訪れた都道府県を日本地図上で確認できるようにしました。どこへ行ったのかを視覚的に振り返り、次の旅行先を考えるきっかけにもつなげます。",
   },
   {
     number: "04",
     title: "県の形に写真を表示",
     description:
-      "訪れた都道府県には、その場所で撮影した写真を県の形に合わせて表示します。地図そのものが少しずつ思い出のアルバムになっていくデザインを目指しました。",
+      "訪れた都道府県には、その場所で撮影した写真を県の形に合わせて表示。日本地図そのものが思い出のアルバムになっていくUIを自分で考えました。",
+  },
+];
+
+const challenges = [
+  {
+    number: "01",
+    title: "日本地図の組み込み",
+    description:
+      "日本地図をアプリへ組み込むだけでなく、各都道府県を個別に扱えるようにする必要がありました。地図データとアプリ側のデータをどのように対応させるかを考えながら実装しました。",
+  },
+  {
+    number: "02",
+    title: "写真の登録・表示",
+    description:
+      "日本地図を組み込んだ後、実際の写真を各都道府県に登録して表示する部分に特に苦労しました。写真アップロード、データ保存、取得、表示までの処理を一つずつ確認しながら実装しました。",
+  },
+  {
+    number: "03",
+    title: "県の形への写真切り抜き",
+    description:
+      "単純に写真を表示するのではなく、都道府県の形に合わせて写真を表示することを目指しました。画像と地図データを組み合わせる必要があり、試行錯誤を重ねました。",
+  },
+  {
+    number: "04",
+    title: "グループでの思い出共有",
+    description:
+      "特定のグループだけで思い出を共有するため、ユーザー・グループ・思い出の関係を考えながらデータ構造を設計しました。個人利用だけではなく、複数人で利用することを前提に設計した点が難しかった部分です。",
   },
 ];
 
 export default function OmoideMapPage() {
   return (
-    <main className="min-h-screen bg-[#0a0a0a] text-white">
+    <main className="min-h-screen bg-[#09090b] text-white">
       {/* Header */}
-      <header className="fixed top-0 z-50 w-full border-b border-white/10 bg-[#0a0a0a]/80 backdrop-blur-md">
+      <header className="fixed top-0 z-50 w-full border-b border-white/10 bg-[#09090b]/85 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
           <Link
             href="/"
-            className="text-lg font-semibold tracking-tight"
+            className="text-lg font-semibold tracking-tight transition hover:text-gray-300"
           >
             HIDE.
           </Link>
@@ -61,176 +90,246 @@ export default function OmoideMapPage() {
       </header>
 
       {/* Hero */}
-      <section className="flex min-h-[90vh] items-center px-6 pt-16">
-        <div className="mx-auto w-full max-w-6xl">
-          <p className="mb-6 text-sm font-medium uppercase tracking-[0.3em] text-gray-500">
-            Mobile Application / Flutter
-          </p>
+      <section className="relative overflow-hidden px-6 pb-32 pt-40">
+        <div className="absolute left-1/2 top-20 -z-10 h-[500px] w-[700px] -translate-x-1/2 rounded-full bg-white/[0.04] blur-3xl" />
 
-          <h1 className="max-w-4xl text-5xl font-bold leading-tight tracking-tight sm:text-7xl">
-            Omoide Map
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-8 flex items-center gap-3 text-sm text-gray-500">
+            <span>01</span>
+            <span className="h-px w-10 bg-gray-700" />
+            <span>Mobile Application</span>
+          </div>
+
+          <h1 className="max-w-5xl text-5xl font-semibold leading-[1.05] tracking-tight sm:text-7xl lg:text-8xl">
+            Omoide
+            <br />
+            <span className="text-gray-500">Map.</span>
           </h1>
 
-          <p className="mt-6 max-w-2xl text-2xl font-medium leading-relaxed text-gray-300">
-            思い出を、場所とともに。
-          </p>
+          <div className="mt-10 grid gap-10 md:grid-cols-[1fr_320px] md:items-end">
+            <div>
+              <p className="text-2xl font-medium tracking-tight text-gray-200 sm:text-3xl">
+                思い出を、場所とともに。
+              </p>
 
-          <p className="mt-8 max-w-2xl text-base leading-8 text-gray-400">
-            友達や大切な人と訪れた場所を、写真や日記とともに残し、
-            日本地図に思い出を積み重ねていくアプリです。
-          </p>
+              <p className="mt-6 max-w-2xl text-base leading-8 text-gray-400">
+                友達や大切な人と訪れた場所を、写真や日記とともに記録。
+                訪れた都道府県を日本地図に残し、
+                「自分たちの思い出で日本地図を埋めていく」ことを目指したアプリです。
+              </p>
+            </div>
 
-          <div className="mt-10 flex flex-wrap gap-3">
-            {[
-              "Flutter",
-              "Firebase",
-              "Firestore",
-              "Google Maps",
-            ].map((tech) => (
-              <span
-                key={tech}
-                className="rounded-full border border-white/10 px-4 py-2 text-sm text-gray-400"
-              >
-                {tech}
-              </span>
-            ))}
+            <div className="border-l border-white/10 pl-6">
+              <p className="text-xs uppercase tracking-[0.25em] text-gray-600">
+                Development
+              </p>
+              <p className="mt-3 text-sm text-gray-300">
+                Personal Project
+              </p>
+              <p className="mt-1 text-sm text-gray-500">
+                1〜3 months / Solo Development
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-10 flex flex-wrap gap-2">
+            {["Flutter", "Firebase", "Firestore", "Google Maps"].map(
+              (tech) => (
+                <span
+                  key={tech}
+                  className="rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-xs text-gray-400"
+                >
+                  {tech}
+                </span>
+              )
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* Why I Built It */}
+      <section className="border-t border-white/10 px-6 py-28 sm:py-36">
+        <div className="mx-auto max-w-6xl">
+          <SectionLabel number="01" label="Why I Built It" />
+
+          <div className="mt-12 grid gap-12 md:grid-cols-2">
+            <div>
+              <h2 className="text-3xl font-semibold leading-tight sm:text-5xl">
+                友達との思い出を、
+                <br />
+                <span className="text-gray-500">
+                  いつか見返せる形に。
+                </span>
+              </h2>
+            </div>
+
+            <div className="space-y-6 text-base leading-8 text-gray-400">
+              <p>
+                友達と過ごす中で、リアルタイムに思い出を共有することが
+                少しずつ生活の一部になっていました。
+              </p>
+
+              <p>
+                自分自身、友達と国内旅行に行くことが多く、
+                旅行先で撮影した写真をスマートフォンに残しています。
+                しかし、時間が経つにつれて写真が埋もれ、
+                「どこに行ったのか」「誰と行ったのか」を
+                振り返る機会が少なくなっていました。
+              </p>
+
+              <p className="text-gray-200">
+                そこで、
+                <span className="font-medium">
+                  「写真だけではなく、場所や一緒に過ごした人まで含めて思い出を残したい」
+                </span>
+                と考え、Omoide Mapを開発しました。
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Problem */}
-      <section className="border-t border-white/10 px-6 py-32">
+      <section className="border-t border-white/10 bg-white/[0.015] px-6 py-28 sm:py-36">
         <div className="mx-auto max-w-6xl">
-          <p className="mb-4 text-sm uppercase tracking-[0.25em] text-gray-500">
-            Problem
-          </p>
+          <SectionLabel number="02" label="Problem" />
 
-          <div className="grid gap-12 md:grid-cols-2">
-            <h2 className="text-3xl font-semibold leading-tight sm:text-4xl">
-              大切な思い出を、
-              <br />
-              もっと残しやすく。
-            </h2>
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            <ProblemCard
+              number="01"
+              title="写真が埋もれる"
+              text="旅行で撮った写真がスマートフォンの中に大量に残り、時間が経つほど思い出を振り返りにくくなる。"
+            />
 
-            <div className="space-y-6 leading-8 text-gray-400">
-              <p>
-                自分自身、友達と国内旅行に行くことが多く、
-                私生活でも思い出を写真として残すことが多くあります。
-              </p>
+            <ProblemCard
+              number="02"
+              title="場所が分からなくなる"
+              text="写真だけを見ても、どこで撮影したのか分からなくなり、旅行の記憶と写真が結びつかなくなる。"
+            />
 
-              <p>
-                しかし、時間が経つにつれて写真がスマートフォンの中に
-                埋もれてしまい、どこへ行ったのか、誰と行ったのかを
-                振り返る機会が少なくなることに課題を感じました。
-              </p>
-
-              <p>
-                そこで、現在の思い出をリアルタイムで友達と共有しながら、
-                将来、年を重ねたときにも旅行の記憶を振り返ることができる
-                仕組みを考えました。
-              </p>
-            </div>
+            <ProblemCard
+              number="03"
+              title="個人の記録で終わる"
+              text="一緒に旅行した友達との思い出を、特定のグループで継続的に共有できる場所がほしい。"
+            />
           </div>
         </div>
       </section>
 
       {/* Idea */}
-      <section className="border-t border-white/10 px-6 py-32">
+      <section className="border-t border-white/10 px-6 py-28 sm:py-36">
         <div className="mx-auto max-w-6xl">
-          <p className="mb-4 text-sm uppercase tracking-[0.25em] text-gray-500">
-            Idea
-          </p>
+          <SectionLabel number="03" label="Idea" />
 
-          <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-8 sm:p-16">
-            <p className="text-sm text-gray-500">
-              THE IDEA
+          <div className="mt-12 rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/[0.07] to-white/[0.02] p-8 sm:p-14">
+            <p className="text-xs uppercase tracking-[0.3em] text-gray-600">
+              The Concept
             </p>
 
-            <h2 className="mt-6 text-4xl font-semibold leading-tight sm:text-6xl">
-              全国を、
+            <h2 className="mt-6 max-w-4xl text-4xl font-semibold leading-tight sm:text-6xl">
+              自分たちの思い出で、
               <br />
-              思い出で埋めていく。
+              <span className="text-gray-500">
+                日本地図を埋めていく。
+              </span>
             </h2>
 
-            <p className="mt-8 max-w-3xl text-lg leading-8 text-gray-400">
-              自分自身の旅行経験をもとに、訪れた場所を写真とともに
-              記録できるアプリを考えました。
-              特に「都道府県の形に写真を表示する」というアイデアは、
-              自分自身で考えたものです。
+            <p className="mt-8 max-w-2xl text-base leading-8 text-gray-400">
+              訪れた都道府県を記録するだけではなく、
+              その場所で撮影した写真を都道府県の形に合わせて表示。
+              旅行の数が増えるほど、日本地図そのものが思い出のアルバムになっていく体験を考えました。
             </p>
 
-            <p className="mt-6 max-w-3xl text-lg leading-8 text-gray-400">
-              また、個人だけでなく、特定の友達グループで思い出を
-              共有できるようにすることで、「自分だけの旅行記録」ではなく
-              「みんなの思い出」として残せることを目指しました。
-            </p>
+            <div className="mt-10 inline-flex rounded-full border border-white/10 px-5 py-3 text-sm text-gray-300">
+              Original UI Idea
+            </div>
           </div>
         </div>
       </section>
 
       {/* User Hearing */}
-      <section className="border-t border-white/10 px-6 py-32">
+      <section className="border-t border-white/10 px-6 py-28 sm:py-36">
         <div className="mx-auto max-w-6xl">
-          <p className="mb-4 text-sm uppercase tracking-[0.25em] text-gray-500">
-            User Research
-          </p>
+          <SectionLabel number="04" label="User Hearing" />
 
-          <div className="grid gap-12 md:grid-cols-2">
+          <div className="mt-12 grid gap-12 md:grid-cols-2">
             <div>
-              <h2 className="text-3xl font-semibold leading-tight sm:text-4xl">
-                自分のアイデアを、
+              <h2 className="text-3xl font-semibold leading-tight sm:text-5xl">
+                自分だけで考えず、
                 <br />
-                他者の視点で磨く。
+                <span className="text-gray-500">
+                  実際に友人へ聞く。
+                </span>
               </h2>
             </div>
 
-            <div className="space-y-6 leading-8 text-gray-400">
-              <p>
-                開発前には実際に友人へヒアリングを行い、
-                自分だけでは気づけなかったニーズを確認しました。
+            <div>
+              <p className="leading-8 text-gray-400">
+                開発前後に友人へヒアリングを行い、
+                実際に使う人の意見を機能へ反映しました。
               </p>
 
-              <p>
-                ヒアリングでは、友達同士など特定のグループで
-                思い出を共有したいという意見があり、
-                グループ共有機能の設計に反映しました。
-              </p>
-
-              <p>
-                また、写真だけでなく日記も残したいという意見を受け、
-                写真と文章の両方から思い出を振り返れるようにしました。
-              </p>
+              <div className="mt-8 space-y-4">
+                <HearingItem
+                  quote="特定のグループで思い出を共有したい"
+                  result="グループ共有機能"
+                />
+                <HearingItem
+                  quote="写真だけではなく日記も残したい"
+                  result="写真＋日記機能"
+                />
+                <HearingItem
+                  quote="訪れた場所を視覚的に見たい"
+                  result="日本地図による可視化"
+                />
+              </div>
             </div>
+          </div>
+
+          <div className="mt-16 rounded-2xl border border-white/10 bg-white/[0.025] p-8 sm:p-10">
+            <p className="text-xs uppercase tracking-[0.25em] text-gray-600">
+              What I realized
+            </p>
+            <p className="mt-5 max-w-3xl text-lg leading-8 text-gray-300">
+              自分一人で考えていると発想に偏りが出ます。
+              実際に使う人へ話を聞くことで、自分では想定していなかったニーズや
+              改善点を知ることができました。
+            </p>
           </div>
         </div>
       </section>
 
       {/* Features */}
-      <section className="border-t border-white/10 px-6 py-32">
+      <section className="border-t border-white/10 bg-white/[0.015] px-6 py-28 sm:py-36">
         <div className="mx-auto max-w-6xl">
-          <p className="mb-4 text-sm uppercase tracking-[0.25em] text-gray-500">
-            Features
-          </p>
+          <SectionLabel number="05" label="Features" />
 
-          <h2 className="mb-16 text-3xl font-semibold sm:text-4xl">
-            What can Omoide Map do?
+          <h2 className="mt-10 text-3xl font-semibold sm:text-5xl">
+            Designed around
+            <br />
+            <span className="text-gray-500">shared memories.</span>
           </h2>
 
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="mt-14 grid gap-5 md:grid-cols-2">
             {features.map((feature) => (
               <div
                 key={feature.number}
-                className="rounded-2xl border border-white/10 bg-white/[0.03] p-8"
+                className="group rounded-2xl border border-white/10 bg-[#0d0d0f] p-8 transition hover:border-white/20 sm:p-10"
               >
-                <p className="text-sm text-gray-500">
-                  {feature.number}
-                </p>
+                <div className="flex items-start justify-between">
+                  <span className="text-sm text-gray-600">
+                    {feature.number}
+                  </span>
+                  <span className="text-gray-700 transition group-hover:text-gray-400">
+                    ↗
+                  </span>
+                </div>
 
-                <h3 className="mt-4 text-2xl font-semibold">
+                <h3 className="mt-8 text-2xl font-semibold">
                   {feature.title}
                 </h3>
 
-                <p className="mt-5 leading-7 text-gray-400">
+                <p className="mt-5 leading-8 text-gray-400">
                   {feature.description}
                 </p>
               </div>
@@ -239,331 +338,206 @@ export default function OmoideMapPage() {
         </div>
       </section>
 
-      {/* Technology */}
-      <section className="border-t border-white/10 px-6 py-32">
+      {/* Design */}
+      <section className="border-t border-white/10 px-6 py-28 sm:py-36">
         <div className="mx-auto max-w-6xl">
-          <p className="mb-4 text-sm uppercase tracking-[0.25em] text-gray-500">
-            Technology
-          </p>
+          <SectionLabel number="06" label="Design" />
 
-          <h2 className="mb-12 text-3xl font-semibold sm:text-4xl">
-            Built with
-          </h2>
+          <div className="mt-12 grid gap-12 md:grid-cols-2 md:items-end">
+            <div>
+              <h2 className="text-3xl font-semibold sm:text-5xl">
+                Figmaで考えてから、
+                <br />
+                <span className="text-gray-500">コードを書く。</span>
+              </h2>
 
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
-            {technologies.map((tech) => (
-              <div
-                key={tech}
-                className="rounded-xl border border-white/10 bg-white/[0.03] p-5 text-sm text-gray-300"
-              >
-                {tech}
-              </div>
-            ))}
+              <p className="mt-6 max-w-xl leading-8 text-gray-400">
+                実装を始める前にFigmaを使ってUIや画面構成を設計。
+                その後Flutterでアプリとして実装しました。
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-dashed border-white/15 bg-white/[0.02] p-12 text-center">
+              <p className="text-sm text-gray-500">
+                Figma / App Screenshots
+              </p>
+              <p className="mt-3 text-xs text-gray-700">
+                Screenshots can be added here.
+              </p>
+            </div>
           </div>
+        </div>
+      </section>
 
-          <div className="mt-12 grid gap-6 md:grid-cols-2">
-            <div className="rounded-2xl border border-white/10 p-8">
-              <h3 className="text-xl font-semibold">
-                Firebase Authentication
-              </h3>
+      {/* Technology */}
+      <section className="border-t border-white/10 bg-white/[0.015] px-6 py-28 sm:py-36">
+        <div className="mx-auto max-w-6xl">
+          <SectionLabel number="07" label="Technology" />
 
-              <p className="mt-4 leading-7 text-gray-400">
-                ユーザーのログイン・認証機能を実装。
+          <div className="mt-12 grid gap-12 md:grid-cols-[0.8fr_1.2fr]">
+            <div>
+              <h2 className="text-3xl font-semibold sm:text-5xl">
+                Built with
+                <br />
+                <span className="text-gray-500">modern tools.</span>
+              </h2>
+
+              <p className="mt-6 leading-8 text-gray-400">
+                Figmaで設計し、Flutterでアプリケーションを開発。
+                Firebaseをバックエンドとして利用し、認証・データ保存・
+                写真データの管理を行いました。
               </p>
             </div>
 
-            <div className="rounded-2xl border border-white/10 p-8">
-              <h3 className="text-xl font-semibold">
-                Cloud Firestore
-              </h3>
-
-              <p className="mt-4 leading-7 text-gray-400">
-                ユーザーやグループ、思い出に関するデータを
-                クラウド上で管理するために使用。
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-white/10 p-8">
-              <h3 className="text-xl font-semibold">
-                Riverpod
-              </h3>
-
-              <p className="mt-4 leading-7 text-gray-400">
-                アプリケーション内の状態管理に使用。
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-white/10 p-8">
-              <h3 className="text-xl font-semibold">
-                GoRouter
-              </h3>
-
-              <p className="mt-4 leading-7 text-gray-400">
-                アプリ内の画面遷移やルーティングを管理。
-              </p>
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+              {technologies.map((tech) => (
+                <div
+                  key={tech}
+                  className="rounded-xl border border-white/10 bg-[#0d0d0f] p-5 text-sm text-gray-300"
+                >
+                  {tech}
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
       {/* Development */}
-      <section className="border-t border-white/10 px-6 py-32">
+      <section className="border-t border-white/10 px-6 py-28 sm:py-36">
         <div className="mx-auto max-w-6xl">
-          <p className="mb-4 text-sm uppercase tracking-[0.25em] text-gray-500">
-            Development
-          </p>
+          <SectionLabel number="08" label="Development" />
 
-          <h2 className="text-3xl font-semibold sm:text-4xl">
-            From idea to product.
-          </h2>
+          <div className="mt-12">
+            <h2 className="text-3xl font-semibold sm:text-5xl">
+              From idea
+              <br />
+              <span className="text-gray-500">to product.</span>
+            </h2>
 
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            <div className="rounded-2xl border border-white/10 p-8">
-              <p className="text-sm text-gray-500">
-                01
-              </p>
+            <div className="mt-14 grid gap-5 md:grid-cols-3">
+              <DevelopmentStep
+                number="01"
+                title="Idea"
+                text="自分自身の旅行経験や写真を残す習慣から、思い出を場所とともに残すアイデアを考えました。"
+              />
 
-              <h3 className="mt-4 text-xl font-semibold">
-                Idea & Research
-              </h3>
+              <DevelopmentStep
+                number="02"
+                title="Design"
+                text="Figmaを使って画面構成やUIを設計。実際の利用シーンを考えながら必要な機能を整理しました。"
+              />
 
-              <p className="mt-4 text-sm leading-7 text-gray-400">
-                自分自身の旅行経験をもとに課題を考え、
-                友人へのヒアリングを通して必要な機能を整理しました。
-              </p>
+              <DevelopmentStep
+                number="03"
+                title="Development"
+                text="FlutterとFirebaseを使い、一人で1〜3か月かけて開発。Git / GitHubでコードを管理しました。"
+              />
             </div>
-
-            <div className="rounded-2xl border border-white/10 p-8">
-              <p className="text-sm text-gray-500">
-                02
-              </p>
-
-              <h3 className="mt-4 text-xl font-semibold">
-                Figma Design
-              </h3>
-
-              <p className="mt-4 text-sm leading-7 text-gray-400">
-                実装前にFigmaを使用してUIや画面構成を設計。
-                アプリ全体のユーザー体験を整理してから開発に入りました。
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-white/10 p-8">
-              <p className="text-sm text-gray-500">
-                03
-              </p>
-
-              <h3 className="mt-4 text-xl font-semibold">
-                Flutter & Firebase
-              </h3>
-
-              <p className="mt-4 text-sm leading-7 text-gray-400">
-                FlutterとDartでアプリを開発し、
-                Firebaseを利用して認証やデータ管理などの
-                バックエンド機能を実装しました。
-              </p>
-            </div>
-          </div>
-
-          <div className="mt-8 rounded-2xl border border-white/10 bg-white/[0.03] p-8">
-            <p className="text-sm uppercase tracking-[0.2em] text-gray-500">
-              Development Period
-            </p>
-
-            <p className="mt-4 text-2xl font-semibold">
-              約2か月
-            </p>
-
-            <p className="mt-3 leading-7 text-gray-400">
-              個人開発として、企画・設計・実装まで一人で行いました。
-              Git / GitHubを利用してソースコードを管理しています。
-            </p>
           </div>
         </div>
       </section>
 
       {/* Challenges */}
-      <section className="border-t border-white/10 px-6 py-32">
+      <section className="border-t border-white/10 bg-white/[0.015] px-6 py-28 sm:py-36">
         <div className="mx-auto max-w-6xl">
-          <p className="mb-4 text-sm uppercase tracking-[0.25em] text-gray-500">
-            Challenges
-          </p>
+          <SectionLabel number="09" label="Challenges" />
 
-          <h2 className="mb-16 text-3xl font-semibold sm:text-4xl">
-            Problems I had to solve.
-          </h2>
+          <div className="mt-12 grid gap-12 md:grid-cols-[0.75fr_1.25fr]">
+            <div>
+              <h2 className="text-3xl font-semibold leading-tight sm:text-5xl">
+                The hard
+                <br />
+                <span className="text-gray-500">parts.</span>
+              </h2>
 
-          <div className="grid gap-6 md:grid-cols-2">
-            <div className="rounded-2xl border border-white/10 p-8">
-              <p className="text-sm text-gray-500">
-                Challenge 01
-              </p>
-
-              <h3 className="mt-4 text-2xl font-semibold">
-                友達同士での思い出共有
-              </h3>
-
-              <p className="mt-5 leading-7 text-gray-400">
-                個人のデータだけではなく、特定のグループで
-                思い出を共有できるようにする必要がありました。
-                誰がどのグループに所属し、どの思い出を共有できるのかを
-                考えながらデータ構造を設計しました。
+              <p className="mt-6 leading-8 text-gray-400">
+                実際に開発してみると、
+                アイデアを形にするために複数の技術を組み合わせる必要がありました。
               </p>
             </div>
 
-            <div className="rounded-2xl border border-white/10 p-8">
-              <p className="text-sm text-gray-500">
-                Challenge 02
-              </p>
+            <div className="space-y-4">
+              {challenges.map((challenge) => (
+                <div
+                  key={challenge.number}
+                  className="rounded-2xl border border-white/10 bg-[#0d0d0f] p-7 sm:p-8"
+                >
+                  <div className="flex gap-6">
+                    <span className="text-sm text-gray-600">
+                      {challenge.number}
+                    </span>
 
-              <h3 className="mt-4 text-2xl font-semibold">
-                都道府県の形への写真表示
-              </h3>
+                    <div>
+                      <h3 className="text-xl font-semibold">
+                        {challenge.title}
+                      </h3>
 
-              <p className="mt-5 leading-7 text-gray-400">
-                写真を単純に一覧表示するのではなく、
-                都道府県そのものの形に合わせて表示する部分に
-                特に苦労しました。
-                地図上の都道府県と写真データをどのように結びつけるかを
-                試行錯誤しながら実装しました。
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-white/10 p-8">
-              <p className="text-sm text-gray-500">
-                Challenge 03
-              </p>
-
-              <h3 className="mt-4 text-2xl font-semibold">
-                写真アップロード
-              </h3>
-
-              <p className="mt-5 leading-7 text-gray-400">
-                スマートフォンで撮影した写真をアプリから扱い、
-                その写真を思い出のデータと関連付ける部分でも
-                実装に苦労しました。
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-white/10 p-8">
-              <p className="text-sm text-gray-500">
-                Challenge 04
-              </p>
-
-              <h3 className="mt-4 text-2xl font-semibold">
-                都道府県の表示
-              </h3>
-
-              <p className="mt-5 leading-7 text-gray-400">
-                日本地図上で都道府県を正しく表示し、
-                ユーザーが訪れた場所を直感的に把握できるようにする部分も
-                開発上の課題となりました。
-              </p>
+                      <p className="mt-4 leading-8 text-gray-400">
+                        {challenge.description}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
       {/* What I Learned */}
-      <section className="border-t border-white/10 px-6 py-32">
+      <section className="border-t border-white/10 px-6 py-28 sm:py-36">
         <div className="mx-auto max-w-6xl">
-          <p className="mb-4 text-sm uppercase tracking-[0.25em] text-gray-500">
-            What I Learned
-          </p>
+          <SectionLabel number="10" label="What I Learned" />
 
-          <h2 className="mb-16 text-3xl font-semibold sm:text-4xl">
-            What this project taught me.
+          <h2 className="mt-10 max-w-3xl text-3xl font-semibold leading-tight sm:text-5xl">
+            技術だけではなく、
+            <br />
+            <span className="text-gray-500">
+              プロダクトの作り方を学んだ。
+            </span>
           </h2>
 
-          <div className="grid gap-6 md:grid-cols-3">
-            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-8">
-              <h3 className="text-xl font-semibold">
-                技術への理解
-              </h3>
+          <div className="mt-14 grid gap-5 md:grid-cols-3">
+            <LearningCard
+              title="Technical"
+              text="FlutterやFirebaseを組み合わせた開発を通して、フロントエンドとバックエンドのデータ連携、非同期処理、TypeScriptなどの仕組みへの理解が深まりました。"
+            />
 
-              <p className="mt-5 leading-7 text-gray-400">
-                FlutterやFirebaseを実際のアプリ開発で使用することで、
-                個別の技術を学ぶだけでなく、それぞれを組み合わせて
-                一つのプロダクトとして動かすための理解が深まりました。
-              </p>
-            </div>
+            <LearningCard
+              title="Product"
+              text="機能を実装することだけを目的にするのではなく、「誰が」「なぜ」「どのように使うのか」を考えてプロダクトを設計する重要性を学びました。"
+            />
 
-            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-8">
-              <h3 className="text-xl font-semibold">
-                プロダクト開発
-              </h3>
-
-              <p className="mt-5 leading-7 text-gray-400">
-                自分が作りたい機能を実装するだけではなく、
-                誰が使うのか、何を解決したいのかを考えてから
-                機能を設計することの重要性を学びました。
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-8">
-              <h3 className="text-xl font-semibold">
-                ユーザーの声
-              </h3>
-
-              <p className="mt-5 leading-7 text-gray-400">
-                自分一人で考えているとアイデアや機能に偏りが出ます。
-                実際に多くの人へ話を聞くことで、自分では気づかなかった
-                意見やニーズを知ることができました。
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Design */}
-      <section className="border-t border-white/10 px-6 py-32">
-        <div className="mx-auto max-w-6xl">
-          <p className="mb-4 text-sm uppercase tracking-[0.25em] text-gray-500">
-            Design
-          </p>
-
-          <h2 className="text-3xl font-semibold sm:text-4xl">
-            Designed with Figma
-          </h2>
-
-          <p className="mt-6 max-w-2xl leading-8 text-gray-400">
-            実際のアプリ開発に入る前に、
-            Figmaを用いてUIや画面構成を設計しました。
-          </p>
-
-          <div className="mt-12 rounded-2xl border border-dashed border-white/20 bg-white/[0.02] p-12 text-center">
-            <p className="text-gray-500">
-              Figma Screenshots
-            </p>
-
-            <p className="mt-3 text-sm text-gray-600">
-              ここにFigmaで作成した画面画像を配置します
-            </p>
+            <LearningCard
+              title="User"
+              text="自分一人で考えると発想に偏りが出ます。実際に友人へヒアリングすることで、自分では気づけなかったニーズを発見できることを学びました。"
+            />
           </div>
         </div>
       </section>
 
       {/* GitHub */}
-      <section className="border-t border-white/10 px-6 py-32">
+      <section className="border-t border-white/10 px-6 py-28 sm:py-36">
         <div className="mx-auto max-w-6xl">
-          <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-10 text-center sm:p-16">
-            <p className="text-sm uppercase tracking-[0.25em] text-gray-500">
-              Source Code
-            </p>
+          <div className="rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/[0.07] to-white/[0.02] p-10 sm:p-16">
+            <SectionLabel number="11" label="Source Code" />
 
-            <h2 className="mt-5 text-3xl font-semibold sm:text-4xl">
-              Explore the project.
+            <h2 className="mt-10 text-4xl font-semibold sm:text-6xl">
+              Explore the
+              <br />
+              <span className="text-gray-500">project.</span>
             </h2>
 
-            <p className="mx-auto mt-5 max-w-xl leading-7 text-gray-400">
-              Omoide Mapのソースコードや開発内容をGitHubで確認できます。
+            <p className="mt-6 max-w-xl leading-8 text-gray-400">
+              Omoide Mapのソースコードや開発内容をGitHubで公開しています。
             </p>
 
             <a
               href="https://github.com/kaiko1188"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-8 inline-block rounded-full bg-white px-7 py-3 text-sm font-medium text-black transition hover:bg-gray-200"
+              className="mt-8 inline-flex rounded-full bg-white px-7 py-3 text-sm font-medium text-black transition hover:bg-gray-200"
             >
               View GitHub →
             </a>
@@ -572,8 +546,8 @@ export default function OmoideMapPage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-white/10 px-6 py-12">
-        <div className="mx-auto flex max-w-6xl justify-between text-sm text-gray-500">
+      <footer className="border-t border-white/10 px-6 py-10">
+        <div className="mx-auto flex max-w-6xl items-center justify-between text-sm text-gray-600">
           <p>Omoide Map / HIDE.</p>
 
           <Link
@@ -585,5 +559,101 @@ export default function OmoideMapPage() {
         </div>
       </footer>
     </main>
+  );
+}
+
+/* ---------- Components ---------- */
+
+function SectionLabel({
+  number,
+  label,
+}: {
+  number: string;
+  label: string;
+}) {
+  return (
+    <div className="flex items-center gap-4 text-xs uppercase tracking-[0.25em] text-gray-500">
+      <span>{number}</span>
+      <span className="h-px w-8 bg-gray-700" />
+      <span>{label}</span>
+    </div>
+  );
+}
+
+function ProblemCard({
+  number,
+  title,
+  text,
+}: {
+  number: string;
+  title: string;
+  text: string;
+}) {
+  return (
+    <div className="rounded-2xl border border-white/10 bg-[#0d0d0f] p-8">
+      <span className="text-sm text-gray-600">{number}</span>
+
+      <h3 className="mt-8 text-xl font-semibold">{title}</h3>
+
+      <p className="mt-4 leading-7 text-gray-400">{text}</p>
+    </div>
+  );
+}
+
+function HearingItem({
+  quote,
+  result,
+}: {
+  quote: string;
+  result: string;
+}) {
+  return (
+    <div className="rounded-xl border border-white/10 bg-white/[0.025] p-5">
+      <p className="text-sm text-gray-300">“{quote}”</p>
+
+      <div className="mt-4 flex items-center gap-3 text-xs">
+        <span className="text-gray-600">→</span>
+        <span className="text-gray-500">Feature</span>
+        <span className="text-gray-300">{result}</span>
+      </div>
+    </div>
+  );
+}
+
+function DevelopmentStep({
+  number,
+  title,
+  text,
+}: {
+  number: string;
+  title: string;
+  text: string;
+}) {
+  return (
+    <div className="rounded-2xl border border-white/10 bg-white/[0.025] p-8">
+      <span className="text-sm text-gray-600">{number}</span>
+
+      <h3 className="mt-8 text-xl font-semibold">{title}</h3>
+
+      <p className="mt-4 leading-7 text-gray-400">{text}</p>
+    </div>
+  );
+}
+
+function LearningCard({
+  title,
+  text,
+}: {
+  title: string;
+  text: string;
+}) {
+  return (
+    <div className="rounded-2xl border border-white/10 bg-white/[0.025] p-8">
+      <p className="text-xs uppercase tracking-[0.25em] text-gray-600">
+        {title}
+      </p>
+
+      <p className="mt-6 leading-8 text-gray-400">{text}</p>
+    </div>
   );
 }
