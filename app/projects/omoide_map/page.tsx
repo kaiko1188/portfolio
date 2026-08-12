@@ -1,4 +1,3 @@
-```tsx
 import Link from "next/link";
 import Image from "next/image";
 
@@ -717,4 +716,3 @@ function LearningCard({
     </div>
   );
 }
-```
