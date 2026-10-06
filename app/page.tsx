@@ -238,20 +238,19 @@ export default function Home() {
                 ))}
               </div>
 
-              <Link
                 href="/projects/dex"
                 className="mt-auto pt-8 text-sm transition hover:text-gray-400"
-              >
-            <div className="mt-4">
-              <a
-                href="https://github.com/kaiko1188/DEX"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block bg-white text-black px-4 py-2 rounded font-medium hover:bg-gray-200"
-              >
-                View Project →
-              </a>
-            </div>
+              
+            <div className="mt-auto pt-8">
+                <a
+                  href="https://github.com/kaiko1188/DEX"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block rounded-full border border-white/20 px-4 py-2 text-sm transition hover:bg-white hover:text-black"
+                >
+                  View Project →
+                </a>
+              </div>
 
             {/* Django Todo */}
             <div className="flex flex-col rounded-2xl border border-white/10 bg-white/[0.03] p-8 transition hover:border-white/20">
